@@ -38,13 +38,23 @@ def get_server_info(ip, port):
         dd = ss.recv(5000)
         i = 0
         status = {}
-        for e in dd.replace(b'\n',b'').split(b'\\')[1:]:
+        final_key = None
+        for e in dd.split(b'\\')[1:]:
             e = e.decode('utf-8')
             if i % 2 == 0:
                 k = e
             else:
                 status[k] = e
+            final_key = k
             i += 1
+
+        final_value = status[final_key]
+        final_lines = final_value.split('\n')
+        status[final_key] = final_lines[0]
+
+        if len(final_lines) > 2:
+            player_infos = final_lines[1:-1]
+            status["_player_info"] = [info.split(" ") for info in player_infos]
 
         ss.close()
         return (ip, port, status)
