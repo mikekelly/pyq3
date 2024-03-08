@@ -39,10 +39,11 @@ else:
     responding_server_infos = [server for server in all_server_infos if server[2]]
     print(f"Responding servers: {len(responding_server_infos)}")
 
-    # responding_cpma_server_infos = [server for server in responding_server_infos if server[2].get("game") == "CPMA"]
-    # print(f"Responding CPMA servers: {len(responding_cpma_server_infos)}")
+    responding_cpma_server_infos = [server for server in responding_server_infos if server[2].get("game") == "CPMA"]
+    print(f"Responding CPMA servers: {len(responding_cpma_server_infos)}")
 
     print()
 
-    for (ip, port, server_info) in responding_server_infos:
-        print_server_info(ip, port, server_info)
+    for (ip, port, server_info) in responding_cpma_server_infos:
+        # print_server_info(ip, port, server_info)
+        print(ip, port, q3.human_player_list(server_info))

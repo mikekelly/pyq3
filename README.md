@@ -13,3 +13,10 @@ Get list of all q3 servers:
 ```
 ./q3server.py
 ```
+
+On mac, if you want an operating system notification whenever someone
+joins a cpma server - leave this script running in the background:
+
+```
+./q3notifier-mac.py
+```

@@ -65,6 +65,21 @@ def get_server_info(ip, port):
         ss.close()
         return (ip, port, {})
 
+def human_player_list(server_info):
+    players = server_info.get("_player_info") or []
+    return player_names([player for player in players if player[1] != '0'])
+
+def player_names(players):
+    return [remove_quotes(remove_color_declarations(player[2])) for player in players]
+
+def remove_color_declarations(name):
+    cleaned_name = re.sub(r'\^[0-9a-zA-Z]', '', name)
+    return cleaned_name
+
+def remove_quotes(text):
+    pattern = r'^"(.*)"$'
+    return re.sub(pattern, r'\1', text)
+
 def get_ip_port(data):
     addr = []
     server_data_array = select_every_six_bytes(data, 0x5c)
